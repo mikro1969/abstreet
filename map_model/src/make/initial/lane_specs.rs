@@ -21,6 +21,21 @@ pub fn get_lane_types(tags: &Tags) -> (Vec<LaneType>, Vec<LaneType>) {
     if tags.is(osm::HIGHWAY, "footway") {
         return (vec![LaneType::Sidewalk], Vec::new());
     }
+    if tags.is(osm::HIGHWAY, "cycleway") {
+        // TODO https://github.com/dabreegster/abstreet/issues/139
+        // Really these should be modelled very differently. But in the short term, include them in
+        // some form.
+        let lanes = if tags.is_any("foot", vec!["yes", "designated"]) {
+            vec![LaneType::Biking, LaneType::Sidewalk]
+        } else {
+            vec![LaneType::Biking]
+        };
+        if tags.is("oneway", "yes") {
+            return (lanes, Vec::new());
+        } else {
+            return (lanes.clone(), lanes);
+        }
+    }
 
     // TODO Reversible roads should be handled differently?
     let oneway =

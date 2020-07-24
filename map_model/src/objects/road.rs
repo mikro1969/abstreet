@@ -365,6 +365,7 @@ impl Road {
 
                 "residential" => 5,
                 "living_street" => 3,
+                "cycleway" => 2,
 
                 "footway" => 1,
 

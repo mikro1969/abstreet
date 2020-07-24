@@ -380,7 +380,6 @@ fn is_road(tags: &mut Tags, opts: &Options) -> bool {
             "bridleway",
             "steps",
             "path",
-            "cycleway",
             "proposed",
             // more discovered manually
             "abandoned",
