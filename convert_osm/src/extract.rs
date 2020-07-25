@@ -370,7 +370,6 @@ fn is_road(tags: &mut Tags, opts: &Options) -> bool {
         vec![
             // List of non-car types from https://wiki.openstreetmap.org/wiki/Key:highway
             // TODO Footways are very useful, but they need more work to associate with main roads
-            "footway",
             "pedestrian",
             "stairs",
             "track",
@@ -379,7 +378,6 @@ fn is_road(tags: &mut Tags, opts: &Options) -> bool {
             "raceway",
             "bridleway",
             "steps",
-            "path",
             "proposed",
             // more discovered manually
             "abandoned",
@@ -394,6 +392,13 @@ fn is_road(tags: &mut Tags, opts: &Options) -> bool {
         ],
     ) {
         return false;
+    }
+
+    // Just for bikes...
+    if tags.is_any(osm::HIGHWAY, vec!["footway", "path"]) {
+        if !tags.is_any("bicycle", vec!["yes", "designated"]) {
+            return false;
+        }
     }
 
     // Service roads can represent lots of things, most of which we don't want to keep yet. What's
