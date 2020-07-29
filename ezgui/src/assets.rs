@@ -41,6 +41,7 @@ impl Assets {
             Font::OverpassRegular,
             Font::OverpassSemiBold,
             Font::OverpassMonoBold,
+            Font::ZcoolXiaoWei,
         ] {
             a.font_to_id.insert(
                 font,
